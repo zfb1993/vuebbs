@@ -7,6 +7,7 @@ export default [
   {
     path: '/',
     name: 'Home',
+    alias: '/topics',
     component: () => import('@/views/Home')
   },
   {
@@ -55,5 +56,27 @@ export default [
     path: '/articles/:articleId/content',
     name: 'Content',
     component: () => import('@/views/articles/Content.vue')
+  },
+  {
+    path: '/articles/:articleId/edit',
+    name: 'Edit',
+    component: () => import('@/views/articles/Create'),
+    meta: { auth: true }
+  },
+  {
+    path: '/:user',
+    component: () => import('@/views/articles/Column'),
+    children: [
+      {
+        path: '',
+        name: 'Column',
+        component: () => import('@/views/articles/List.vue')
+      },
+      {
+        path: '/articles/:articleId/content',
+        name: 'Content',
+        component: () => import('@/views/articles/Content.vue')
+      }
+    ]
   },
 ]
